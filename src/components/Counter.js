@@ -35,10 +35,25 @@ const Counter = () => {
       <div style={style}>
          <h1>Counter : {count}</h1>
          <p>Tunggu 5 detik</p>
-         <p>Hasil fetch keluar di console</p>
+         <p>Hasil fetch lengkap keluar di console</p>
          <div style={{ display: "flex", margin: "10px" }}>
             <button onClick={() => dispatch(minus())}>MINUS</button>
             <button onClick={() => dispatch(add())}>ADD</button>
+         </div>
+         <h3>
+            Hasil fetch keluar disini (API mengirim resep2 masakan sebagai
+            contoh hanya judul masakan yang akan ditampilkan)
+         </h3>
+         <div>
+            <ul>
+               {dataFetch ? (
+                  dataFetch.map((recipe, index) => (
+                     <li key={index}>{recipe.recipe.label}</li>
+                  ))
+               ) : (
+                  <p></p>
+               )}
+            </ul>
          </div>
       </div>
    );
