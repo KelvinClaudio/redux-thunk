@@ -1,18 +1,25 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { add, minus } from "../actionCreators/ActionCreators";
 
-const mapStateToProps = state => {
-   return {
-      count: state.count,
-   };
-};
-const mapDispatchToProps = dispatch => {
-   return {
-      dispatchAction: action => dispatch(action),
-   };
-};
-const Counter = ({ count, dispatchAction }) => {
+// const mapStateToProps = state => {
+//    return {
+//       count: state.count,
+//    };
+// };
+
+const Counter = () => {
+   const count = useSelector(state => state.count);
+   const dataFetch = useSelector(state => state.data);
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+      const data = async () => {
+         await console.log(dataFetch);
+      };
+      data();
+   }, [dataFetch]);
+
    const style = {
       width: "100%",
       height: "100vh",
@@ -27,12 +34,14 @@ const Counter = ({ count, dispatchAction }) => {
    return (
       <div style={style}>
          <h1>Counter : {count}</h1>
+         <p>Tunggu 5 detik</p>
+         <p>Hasil fetch keluar di console</p>
          <div style={{ display: "flex", margin: "10px" }}>
-            <button onClick={() => dispatchAction(minus())}>MINUS</button>
-            <button onClick={() => dispatchAction(add())}>ADD</button>
+            <button onClick={() => dispatch(minus())}>MINUS</button>
+            <button onClick={() => dispatch(add())}>ADD</button>
          </div>
       </div>
    );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default Counter;
